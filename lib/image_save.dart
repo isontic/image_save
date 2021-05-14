@@ -16,7 +16,7 @@ class ImageSave {
   /// [albumName] Album name, optional. For Android, default application name. For iOS, default system album.
   /// [overwriteSameNameFile] Only works on Android. If <code>true</code>, overwrite the original file that has same name, default <code>true</code>.
   static Future<bool> saveImage(Uint8List imageData, String imageName,
-      {String albumName, overwriteSameNameFile = true}) async {
+      {String? albumName, overwriteSameNameFile = true}) async {
     bool success = false;
     try {
       success = await _channel.invokeMethod('saveImage', {
@@ -53,7 +53,7 @@ class ImageSave {
   static Future<List<Uint8List>> getImagesFromSandbox() async {
     List<Uint8List> images = [];
     try {
-      images = await _channel.invokeListMethod("getImagesFromSandbox");
+      images = await _channel.invokeListMethod("getImagesFromSandbox") as List<Uint8List>;
     } on PlatformException {
       rethrow;
     }
